@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nettoyer les photos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        button {
+            background: #0066FF;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #0052CC;
+        }
+        .danger {
+            background: #FF3B30;
+        }
+        .danger:hover {
+            background: #CC2F26;
+        }
+        .info {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            color: #333;
+        }
+        pre {
+            background: #f8f8f8;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>🧹 Nettoyer les photos de profil</h1>
+        <p>Cet outil permet de supprimer les anciennes photos stockées en localStorage pour éviter les conflits entre client et transporteur.</p>
+        
+        <div class="info" id="status">
+            <strong>Photos trouvées:</strong>
+            <pre id="photosList">Chargement...</pre>
+        </div>
+        
+        <button onclick="showPhotos()">🔍 Voir les photos stockées</button>
+        <button class="danger" onclick="clearOldPhotos()">🗑️ Supprimer l'ancienne photo (userAvatar)</button>
+        <button class="danger" onclick="clearAllPhotos()">⚠️ Supprimer TOUTES les photos</button>
+    </div>
+
+    <script>
+        function showPhotos() {
+            const photos = [];
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key && key.includes('Avatar')) {
+                    const value = localStorage.getItem(key);
+                    photos.push({
+                        key: key,
+                        size: value ? (value.length / 1024).toFixed(2) + ' KB' : '0 KB'
+                    });
+                }
+            }
+            
+            if (photos.length === 0) {
+                document.getElementById('photosList').textContent = 'Aucune photo trouvée';
+            } else {
+                document.getElementById('photosList').textContent = JSON.stringify(photos, null, 2);
+            }
+        }
+        
+        function clearOldPhotos() {
+            if (confirm('Supprimer la clé "userAvatar" (ancienne version sans ID)?')) {
+                localStorage.removeItem('userAvatar');
+                alert('✅ Ancienne photo supprimée');
+                showPhotos();
+            }
+        }
+        
+        function clearAllPhotos() {
+            if (confirm('⚠️ ATTENTION: Cela supprimera TOUTES les photos de profil!')) {
+                const keys = [];
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && key.includes('Avatar')) {
+                        keys.push(key);
+                    }
+                }
+                
+                keys.forEach(key => localStorage.removeItem(key));
+                alert('✅ Toutes les photos ont été supprimées');
+                showPhotos();
+            }
+        }
+        
+        // Afficher au chargement
+        showPhotos();
+    </script>
+</body>
+</html>

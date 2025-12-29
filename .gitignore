@@ -1,0 +1,93 @@
+# Flutter/Dart
+.dart_tool/
+.packages
+.pub/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+.melos_tool
+.idea/
+*.iml
+*.ipr
+*.iws
+*.log
+*.tmp
+*.swp
+*.lock
+*.DS_Store
+*.class
+*.jar
+*.war
+*.ear
+*.db
+*.sublime-workspace
+*.sublime-project
+*.vscode/
+
+# Android
+android/.gradle/
+android/app/build/
+android/local.properties
+android/.idea/
+android/.settings/
+android/.cxx/
+
+# iOS
+ios/Pods/
+ios/Runner.xcworkspace/
+ios/Flutter/Flutter.framework/
+ios/Flutter/Flutter.podspec
+ios/Flutter/Generated.xcconfig
+ios/Flutter/app.flx
+ios/Flutter/ephemeral/
+ios/Flutter/Flutter.podspec
+
+# macOS
+macos/Flutter/ephemeral/
+macos/Pods/
+
+# Web
+web/.dart_tool/
+web/build/
+
+# Windows
+windows/Flutter/ephemeral/
+
+# Linux
+linux/Flutter/ephemeral/
+
+# Database & secrets
+*.sqlite
+*.db
+*.env
+.env.*
+secrets.json
+config.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+.env
+venv/
+ENV/
+.envrc
+
+# Node
+node_modules/
+
+# Logs
+*.log
+
+# Misc
+*.bak
+*.tmp
+*.swp
+*.swo
+*.orig
+
+# VSCode
+.vscode/

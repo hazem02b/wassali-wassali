@@ -1,24 +1,26 @@
 import { useNavigate } from 'react-router-dom';
 import { Package, Zap, DollarSign, Shield } from 'lucide-react';
 import LanguageSelector from '../components/LanguageSelector';
-import logo from 'figma:asset/e99d77607d79fe76d51100c87e8c1575596ec122.png';
+import { useLanguage } from '../contexts/LanguageContext';
+import logoImage from '../../assets/wassali-logo.svg';
 
 export default function LandingPage() {
   const navigate = useNavigate();
+  const { t } = useLanguage();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0066FF] to-[#0052CC] text-white p-6 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-b from-[#0066FF] to-[#0052CC] text-white p-6 flex flex-col relative">
       {/* Language Selector */}
-      <div className="absolute top-6 right-6">
-        <LanguageSelector />
+      <div className="absolute top-6 right-6 z-50">
+        <LanguageSelector variant="dark" />
       </div>
 
       {/* Logo and Tagline */}
       <div className="text-center pt-16 pb-8">
         <div className="flex items-center justify-center mb-4">
-          <img src={logo} alt="Wassali Logo" className="w-32 h-32 object-contain" />
+          <img src={logoImage} alt="Wassali Logo" className="w-32 h-32" />
         </div>
-        <p className="text-xl text-blue-100">Ça arrive!</p>
+        <p className="text-xl text-blue-100">{t('tagline')}</p>
       </div>
 
       {/* User Type Selection */}
@@ -32,8 +34,8 @@ export default function LandingPage() {
               <Package className="w-6 h-6 text-[#0066FF]" />
             </div>
             <div className="flex-1 text-left">
-              <h3 className="text-lg mb-1">Continue as Client</h3>
-              <p className="text-sm text-gray-600">Send packages easily</p>
+              <h3 className="text-lg mb-1">{t('continueAsClient')}</h3>
+              <p className="text-sm text-gray-600">{t('sendPackagesEasily')}</p>
             </div>
           </div>
         </button>
@@ -47,8 +49,8 @@ export default function LandingPage() {
               <Package className="w-6 h-6 text-white" />
             </div>
             <div className="flex-1 text-left">
-              <h3 className="text-lg mb-1">Become Transporter</h3>
-              <p className="text-sm text-orange-100">Earn by delivering</p>
+              <h3 className="text-lg mb-1">{t('becomeTransporter')}</h3>
+              <p className="text-sm text-orange-100">{t('earnByDelivering')}</p>
             </div>
           </div>
         </button>
@@ -58,26 +60,26 @@ export default function LandingPage() {
       <div className="grid grid-cols-3 gap-4 mt-8 mb-6">
         <div className="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
           <Zap className="w-6 h-6 mx-auto mb-2" />
-          <p className="text-sm">Fast</p>
+          <p className="text-sm">{t('fast')}</p>
         </div>
         <div className="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
           <DollarSign className="w-6 h-6 mx-auto mb-2" />
-          <p className="text-sm">Affordable</p>
+          <p className="text-sm">{t('affordable')}</p>
         </div>
         <div className="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
           <Shield className="w-6 h-6 mx-auto mb-2" />
-          <p className="text-sm">Trusted</p>
+          <p className="text-sm">{t('trusted')}</p>
         </div>
       </div>
 
       {/* Login Link */}
       <div className="text-center pb-8">
-        <p className="text-blue-100 mb-2">Already have an account?</p>
+        <p className="text-blue-100 mb-2">{t('alreadyHaveAccount')}</p>
         <button
           onClick={() => navigate('/login')}
           className="text-white underline"
         >
-          Login
+          {t('login')}
         </button>
       </div>
     </div>

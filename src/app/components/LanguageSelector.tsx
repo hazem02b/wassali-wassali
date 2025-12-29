@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Globe } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface LanguageSelectorProps {
   variant?: 'light' | 'dark';
@@ -7,19 +8,20 @@ interface LanguageSelectorProps {
 
 export default function LanguageSelector({ variant = 'dark' }: LanguageSelectorProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState('FR');
+  const { language, setLanguage } = useLanguage();
 
   const languages = [
-    { code: 'FR', label: 'Français', flag: '🇫🇷' },
-    { code: 'EN', label: 'English', flag: '🇬🇧' },
-    { code: 'AR', label: 'العربية', flag: '🇹🇳' },
+    { code: 'en', label: 'English', flag: '🇬🇧' },
+    { code: 'fr', label: 'Français', flag: '🇫🇷' },
+    { code: 'ar', label: 'العربية', flag: '🇹🇳' },
   ];
 
   const handleLanguageChange = (code: string) => {
-    setCurrentLanguage(code);
+    setLanguage(code as 'en' | 'fr' | 'ar');
     setIsOpen(false);
-    // Here you would typically update the app's i18n context
   };
+
+  const currentLanguage = language.toUpperCase();
 
   return (
     <div className="relative">
@@ -47,12 +49,12 @@ export default function LanguageSelector({ variant = 'dark' }: LanguageSelectorP
                 key={lang.code}
                 onClick={() => handleLanguageChange(lang.code)}
                 className={`w-full flex items-center space-x-3 px-4 py-3 hover:bg-gray-50 transition-colors ${
-                  currentLanguage === lang.code ? 'bg-blue-50' : ''
+                  language === lang.code ? 'bg-blue-50' : ''
                 }`}
               >
                 <span className="text-xl">{lang.flag}</span>
                 <span className="text-sm text-gray-900">{lang.label}</span>
-                {currentLanguage === lang.code && (
+                {language === lang.code && (
                   <span className="ml-auto text-[#0066FF]">✓</span>
                 )}
               </button>

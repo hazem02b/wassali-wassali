@@ -1,10 +1,9 @@
-"""
+﻿"""
 API v1 Router - Combines all endpoint routers
 """
 from fastapi import APIRouter
 
-from app.api.v1.endpoints import auth, trips, bookings, websocket, messages, users, reviews
-
+from app.api.v1.endpoints import auth, trips, bookings, websocket, messages, users, reviews, parcels
 
 api_router = APIRouter()
 
@@ -15,4 +14,5 @@ api_router.include_router(bookings.router)
 api_router.include_router(messages.router)
 api_router.include_router(users.router)
 api_router.include_router(reviews.router)
+api_router.include_router(parcels.router)
 api_router.include_router(websocket.router)

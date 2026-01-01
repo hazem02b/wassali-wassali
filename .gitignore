@@ -1,93 +1,78 @@
-# Flutter/Dart
-.dart_tool/
-.packages
-.pub/
-build/
-.flutter-plugins
-.flutter-plugins-dependencies
-.melos_tool
-.idea/
-*.iml
-*.ipr
-*.iws
-*.log
-*.tmp
-*.swp
-*.lock
-*.DS_Store
-*.class
-*.jar
-*.war
-*.ear
-*.db
-*.sublime-workspace
-*.sublime-project
-*.vscode/
-
-# Android
-android/.gradle/
-android/app/build/
-android/local.properties
-android/.idea/
-android/.settings/
-android/.cxx/
-
-# iOS
-ios/Pods/
-ios/Runner.xcworkspace/
-ios/Flutter/Flutter.framework/
-ios/Flutter/Flutter.podspec
-ios/Flutter/Generated.xcconfig
-ios/Flutter/app.flx
-ios/Flutter/ephemeral/
-ios/Flutter/Flutter.podspec
-
-# macOS
-macos/Flutter/ephemeral/
-macos/Pods/
-
-# Web
-web/.dart_tool/
-web/build/
-
-# Windows
-windows/Flutter/ephemeral/
-
-# Linux
-linux/Flutter/ephemeral/
-
-# Database & secrets
-*.sqlite
-*.db
-*.env
-.env.*
-secrets.json
-config.json
-
-# Python
+﻿# Fichiers Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
-*.db
-*.sqlite3
+*.py[cod]
+*.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
 .env
 venv/
 ENV/
-.envrc
 
-# Node
-node_modules/
+# Flutter/Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+wassali_mobile_app/build/
+wassali_mobile_app/.flutter-plugins
+wassali_mobile_app/.flutter-plugins-dependencies
+
+# Android
+*.iml
+.gradle
+local.properties
+.idea/
+*.iws
+*.ipr
+*.apk
+*.ap_
+*.dex
+*.class
+bin/
+gen/
+out/
+release/
+
+# Gradle
+.gradle/
+!gradle-wrapper.jar
+
+# IDE
+.vscode/
+.vs/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
 
 # Logs
 *.log
 
-# Misc
-*.bak
-*.tmp
-*.swp
-*.swo
-*.orig
+# Database
+*.db
+*.sqlite
+*.sqlite3
 
-# VSCode
-.vscode/
+# Secrets
+.env.local
+.env.production

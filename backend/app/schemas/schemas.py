@@ -1,4 +1,4 @@
-"""
+﻿"""
 Pydantic Schemas for API request/response validation
 """
 from pydantic import BaseModel, EmailStr, Field, validator, ConfigDict
@@ -34,11 +34,11 @@ class UserBase(BaseModel):
 
 
 class UserCreate(UserBase):
-    password: str = Field(..., min_length=6)  # Minimum 6 caractères comme dans le frontend
+    password: str = Field(..., min_length=6)  # Minimum 6 caractÃ¨res comme dans le frontend
 
 
 class UserCreateSimple(BaseModel):
-    """Schema pour inscription sans spécifier le rôle (endpoints /client ou /transporter)"""
+    """Schema pour inscription sans spÃ©cifier le rÃ´le (endpoints /client ou /transporter)"""
     email: EmailStr
     name: str = Field(..., min_length=2, max_length=200)
     phone: Optional[str] = Field(None, max_length=20)
@@ -49,7 +49,7 @@ class UserCreateSimple(BaseModel):
 class UserLogin(BaseModel):
     email: EmailStr
     password: str
-    role: UserRole  # Ajouté pour distinguer client/transporter
+    role: UserRole  # AjoutÃ© pour distinguer client/transporter
 
 
 class UserUpdate(BaseModel):
@@ -317,3 +317,38 @@ class ListResponse(BaseModel):
 class MessageResponseModel(BaseModel):
     message: str
     success: bool = True
+
+
+# ==================== PARCEL SCHEMAS ====================
+class ParcelCreate(BaseModel):
+    pickup_address: str = Field(..., min_length=5, max_length=500)
+    delivery_address: str = Field(..., min_length=5, max_length=500)
+    description: Optional[str] = None
+    weight: float = Field(..., gt=0)
+    size: Optional[str] = Field(None, max_length=50)
+    price: float = Field(..., gt=0)
+
+
+class ParcelUpdate(BaseModel):
+    pickup_address: Optional[str] = None
+    delivery_address: Optional[str] = None
+    description: Optional[str] = None
+    weight: Optional[float] = None
+    size: Optional[str] = None
+    price: Optional[float] = None
+    status: Optional[str] = None
+
+
+class ParcelResponse(BaseModel):
+    id: int
+    sender_id: int
+    pickup_address: str
+    delivery_address: str
+    description: Optional[str] = None
+    weight: float
+    size: Optional[str] = None
+    price: float
+    status: str
+    created_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)

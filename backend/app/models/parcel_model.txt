@@ -1,0 +1,28 @@
+﻿
+
+class Parcel(Base):
+    """Parcel/Envoi model"""
+    __tablename__ = "parcels"
+
+    id = Column(Integer, primary_key=True, index=True)
+    sender_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    
+    # Addresses
+    pickup_address = Column(String(500), nullable=False)
+    delivery_address = Column(String(500), nullable=False)
+    
+    # Parcel info
+    description = Column(Text)
+    weight = Column(Float, nullable=False)  # kg
+    size = Column(String(50))  # small, medium, large
+    price = Column(Float, nullable=False)
+    
+    # Status
+    status = Column(String(50), default="pending")  # pending, assigned, in_transit, delivered
+    
+    # Timestamps
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+    
+    # Relationships
+    sender = relationship("User", foreign_keys=[sender_id])

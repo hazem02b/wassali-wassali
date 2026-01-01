@@ -1,4 +1,4 @@
-from typing import List
+﻿from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy import func
@@ -10,6 +10,30 @@ from datetime import datetime
 
 router = APIRouter(prefix="/users", tags=["users"])
 
+@router.get("/transporters/all", response_model=List[UserResponse])
+def get_all_transporters(
+    db: Session = Depends(get_db)
+):
+    """
+    Get list of all transporters.
+    Public endpoint - no authentication required.
+    """
+    transporters = db.query(User).filter(User.role == "transporter").all()
+    return transporters
+
+
+@router.get("/transporters/available", response_model=List[UserResponse])
+def get_available_transporters(
+    db: Session = Depends(get_db)
+):
+    """
+    Get list of available transporters.
+    Public endpoint - no authentication required.
+    """
+    transporters = db.query(User).filter(
+        User.role == "transporter"
+    ).all()
+    return transporters
 
 @router.get("/available", response_model=List[UserResponse])
 def get_available_users(
@@ -58,19 +82,19 @@ def get_user_stats(
             Booking.client_id == current_user.id
         ).count()
         
-        # Total dépensé (réservations payées)
+        # Total dÃ©pensÃ© (rÃ©servations payÃ©es)
         total_spent = db.query(func.sum(Booking.total_price)).filter(
             Booking.client_id == current_user.id,
             Booking.is_paid == True
         ).scalar() or 0
         
-        # Réservations actives
+        # RÃ©servations actives
         active_bookings = db.query(Booking).filter(
             Booking.client_id == current_user.id,
             Booking.status.in_(['pending', 'confirmed', 'in_transit'])
         ).count()
         
-        # Réservations terminées
+        # RÃ©servations terminÃ©es
         completed_bookings = db.query(Booking).filter(
             Booking.client_id == current_user.id,
             Booking.status == 'delivered'
@@ -90,7 +114,7 @@ def get_user_stats(
             Trip.transporter_id == current_user.id
         ).count()
         
-        # Total revenus (réservations livrées et payées)
+        # Total revenus (rÃ©servations livrÃ©es et payÃ©es)
         total_revenue = db.query(func.sum(Booking.total_price)).join(
             Trip, Booking.trip_id == Trip.id
         ).filter(
@@ -99,7 +123,7 @@ def get_user_stats(
             Booking.is_paid == True
         ).scalar() or 0
         
-        # Réservations en attente
+        # RÃ©servations en attente
         pending_bookings = db.query(Booking).join(
             Trip, Booking.trip_id == Trip.id
         ).filter(
@@ -107,7 +131,7 @@ def get_user_stats(
             Booking.status == 'pending'
         ).count()
         
-        # Réservations confirmées
+        # RÃ©servations confirmÃ©es
         confirmed_bookings = db.query(Booking).join(
             Trip, Booking.trip_id == Trip.id
         ).filter(
@@ -115,7 +139,7 @@ def get_user_stats(
             Booking.status == 'confirmed'
         ).count()
         
-        # Réservations en transit
+        # RÃ©servations en transit
         in_transit_bookings = db.query(Booking).join(
             Trip, Booking.trip_id == Trip.id
         ).filter(
@@ -143,7 +167,7 @@ def update_user_profile(
     """
     Update current user profile.
     """
-    # Mettre à jour les champs fournis
+    # Mettre Ã  jour les champs fournis
     if user_update.name is not None:
         current_user.name = user_update.name
     if user_update.phone is not None:
